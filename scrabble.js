@@ -1,4 +1,3 @@
-
 var Scrabble = function() {};
 
 // YOUR CODE HERE
@@ -77,12 +76,12 @@ Scrabble.prototype.score = function(word) {
         points = 0
     };
   };
-  // console.log("the score for " + word + " is " + points)
 
   if ( word.length == 7) {
     // console.log("You earned 50 bonus points for using all of your tiles!");
     points += 50
   };
+  // console.log("the score for " + word + " is " + points)
   return points
 };
 
@@ -93,32 +92,51 @@ Scrabble.prototype.score = function(word) {
 // console.log(Scrabble.prototype.score(""));
 // console.log(Scrabble.prototype.score("eeeeeee")); <--- BONUS for all 7 tiles
 
-// highestScoreFrom(arrayOfWords): returns the word in the array with the highest score.
-// Note that it’s better to use fewer tiles, so if the top score is tied between multiple words, pick the one with the fewest letters.
-// Note that there is a bonus (50 points) for using all seven letters. If the top score is tied between multiple words and one used all seven letters, choose the one with seven letters over the one with fewer tiles.
-// If the there are multiple words that are the same score and same length, pick the first one in supplied list.
-Scrabble.prototype.highestScoreFrom = function(arrayOfWords){
-  max_score = 0
 
+Scrabble.prototype.highestScoreFrom = function(arrayOfWords){
+  var max_score = 0
+  var highestScoringWords = [];
+  // console.log(highestScoringWords);
+  // iterate through the words and find the scores for each. if the score is greater than or equal to the max score so far, set max score equal to the score of that word
   for (var i=0; i < arrayOfWords.length; i++) {
       Scrabble.prototype.score(arrayOfWords[i])
-      if (Scrabble.prototype.score(arrayOfWords[i]) > max_score){
+      if (Scrabble.prototype.score(arrayOfWords[i]) >= max_score){
         max_score = Scrabble.prototype.score(arrayOfWords[i]);
       };
   };
+// iterate through the array of words and score each one, if the score matches max score, put the word into the highestScoringWords array
   for (var i=0; i < arrayOfWords.length; i++) {
       Scrabble.prototype.score(arrayOfWords[i])
       if (Scrabble.prototype.score(arrayOfWords[i]) == max_score){
-        // console.log(arrayOfWords[i] + " has the largest score of " + max_score )
-        return arrayOfWords[i];
-      };
-    };
-};
+          highestScoringWords.push(arrayOfWords[i]);
+      }
+      // console.log(highestScoringWords);
+    }
+// If there is only one element in the highscoringwords array, return that element because it's the winner
+        if (highestScoringWords.length == 1){
+          return highestScoringWords[0];
+        }
+// If there is more than one element in th highestScoringWords array, there was a tie
+        else { //sort the words in the array by their length, longest first
+              highestScoringWords.sort(function(a,b){ return a.length < b.length});
+              //if there is a 7 letter word, it wins
+                if (highestScoringWords[0].length == 7){ return highestScoringWords[0]}
+              // otherwise, take the shortest highestscoringword, in this case the one on the end because I sorted the array
+                else {return highestScoringWords.pop();}
+          }
+            // console.log(highestScoringWords);
+  };
 
 //TESTS
 //Order shouldn't matter in the array of words...
 // console.log(Scrabble.prototype.highestScoreFrom(["frog", "cat", "xxxxxx"]));
 // console.log(Scrabble.prototype.highestScoreFrom(["frog", "xxxxxx", "cat"]));
 // console.log(Scrabble.prototype.highestScoreFrom(["xxxxxx", "frog" , "cat"]));
+
+// If words are tied, the 7-letter words should win
+// console.log(Scrabble.prototype.highestScoreFrom(["aaaaaab", "qqqqqj"]));
+
+//If words are tied, but none are 7 letters, the shortest word should win
+// console.log(Scrabble.prototype.highestScoreFrom(["ff", "x"]))
 
 module.exports = Scrabble;
