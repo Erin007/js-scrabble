@@ -10,7 +10,7 @@ var Player = function(name) {
 };
 
 //TEST making a new player
-var erin = new Player("Erin")
+// var erin = new Player("Erin")
 // console.log(erin.name);
 // console.log(erin.plays);
 // console.log(erin.playerPoints);
@@ -109,11 +109,36 @@ Scrabble.score = function(word) {
 };
 
 //Testing score function
-// console.log(Scrabble.prototype.score("FROG"));
+// console.log(Scrabble.score("CATS"));
 // console.log(Scrabble.prototype.score("$"));
 // console.log(Scrabble.prototype.score("zZzZzz"));
 // console.log(Scrabble.prototype.score(""));
 // console.log(Scrabble.prototype.score("eeeeeee")); <--- BONUS for all 7 tiles
+
+
+Player.prototype.play = function(word) {
+  if (this.hasWon() == true){
+    return false
+  }
+  else {
+    this.plays.push(word);
+    this.playerPoints += Scrabble.score(word);
+    return word
+  }
+}
+//TEST Play word function, should return false if already won
+var erin = new Player("Erin");
+erin.playerPoints = 105;
+console.log(erin.play("cats"));
+// If the player has less than 100 points, Play word function should put the word in the player's plays array and increments the player's score
+erin.playerPoints = 10;
+console.log(erin.playerPoints);
+console.log(erin.plays);
+erin.play("cats");
+console.log(erin.plays);
+console.log(erin.playerPoints);
+
+
 
 
 Scrabble.highestScoreFrom = function(arrayOfWords){
