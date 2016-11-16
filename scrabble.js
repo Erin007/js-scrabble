@@ -205,13 +205,6 @@ Player.prototype.highestWordScore = function() {
 }
 
 //TEST highestWordScore
-console.log(erin.highestWordScore()); //<--- should return 6, because cats is the highest scoring word and it's worth 6 points  
+console.log(erin.highestWordScore()); //<--- should return 6, because cats is the highest scoring word and it's worth 6 points
 
 module.exports = Scrabble;
-
-
-// YOUR CODE HERE
-// Scrabble.prototype.helloWorld = function() {
-//   return 'hello world!';
-// };
-// TEST: console.log(Scrabble.prototype.helloWorld());
