@@ -3,16 +3,36 @@ var Scrabble = function() {
   this.highestScoreFrom = highestScoreFrom;
 };
 
-// YOUR CODE HERE
-Scrabble.prototype.helloWorld = function() {
-  return 'hello world!';
+var Player = function(name) {
+  this.name = name;
+  this.plays = [];
+  this.playerPoints = 0;
 };
-// TEST: console.log(Scrabble.prototype.helloWorld());
+
+//TEST making a new player
+var erin = new Player("Erin")
+// console.log(erin.name);
+// console.log(erin.plays);
+// console.log(erin.playerPoints);
+
+Player.prototype.hasWon = function(){
+  if (this.playerPoints > 100){
+    return true;
+  }
+  else {
+    return false;
+  }
+};
+
+//TEST if a player has won
+// console.log(erin.hasWon()); //<--- 0 points, should be false
+// erin.playerPoints = 105;
+// console.log(erin.hasWon()); //<---- 105 points, should be true
 
 Scrabble.score = function(word) {
 
   var word = word.toLowerCase();
-  var points = 0;
+  var wordPoints = 0;
 
   for (var i = 0; i < word.length; i++){
 
@@ -30,13 +50,13 @@ Scrabble.score = function(word) {
       case 'r':
       case 's':
       case 't':
-        points += 1;
+        wordPoints += 1;
         // console.log(points)
       break;
 
       case 'd':
       case 'g':
-        points += 2;
+        wordPoints += 2;
         // console.log(points)
       break;
 
@@ -44,7 +64,7 @@ Scrabble.score = function(word) {
       case 'c':
       case 'm':
       case 'p':
-        points += 3;
+        wordPoints += 3;
         // console.log(points)
       break;
 
@@ -53,39 +73,39 @@ Scrabble.score = function(word) {
       case 'v':
       case 'w':
       case 'y':
-        points += 4;
+        wordPoints += 4;
         // console.log(points)
       break;
 
       case 'k':
-        points += 5;
+        wordPoints += 5;
         // console.log(points)
       break;
 
       case 'x':
       case 'j':
-        points += 8;
+        wordPoints += 8;
         // console.log(points)
       break;
 
       case 'q':
       case 'z':
-        points += 10;
+        wordPoints += 10;
         // console.log(points)
       break;
 
       default:
       console.log("hmm. something's wrong.");
-        points = 0
+        wordPoints = 0
     };
   };
 
   if ( word.length == 7) {
     // console.log("You earned 50 bonus points for using all of your tiles!");
-    points += 50
+    wordPoints += 50
   };
   // console.log("the score for " + word + " is " + points)
-  return points
+  return wordPoints
 };
 
 //Testing score function
@@ -137,9 +157,17 @@ Scrabble.highestScoreFrom = function(arrayOfWords){
 // console.log(Scrabble.prototype.highestScoreFrom(["xxxxxx", "frog" , "cat"]));
 
 // If words are tied, the 7-letter words should win
-console.log(Scrabble.highestScoreFrom(["aaaaaab", "qqqqqj"]));
+// console.log(Scrabble.highestScoreFrom(["aaaaaab", "qqqqqj"]));
 
 //If words are tied, but none are 7 letters, the shortest word should win
 // console.log(Scrabble.prototype.highestScoreFrom(["ff", "x"]))
 
+
 module.exports = Scrabble;
+
+
+// YOUR CODE HERE
+// Scrabble.prototype.helloWorld = function() {
+//   return 'hello world!';
+// };
+// TEST: console.log(Scrabble.prototype.helloWorld());
