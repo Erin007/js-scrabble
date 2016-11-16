@@ -115,7 +115,6 @@ Scrabble.score = function(word) {
 // console.log(Scrabble.prototype.score(""));
 // console.log(Scrabble.prototype.score("eeeeeee")); <--- BONUS for all 7 tiles
 
-
 Player.prototype.play = function(word) {
   if (this.hasWon() == true){
     return false
@@ -128,18 +127,16 @@ Player.prototype.play = function(word) {
 }
 //TEST Play word function, should return false if already won
 var erin = new Player("Erin");
-erin.playerPoints = 105;
-console.log(erin.play("cats"));
-// If the player has less than 100 points, Play word function should put the word in the player's plays array and increments the player's score
-erin.playerPoints = 10;
-console.log(erin.playerPoints);
-console.log(erin.plays);
-erin.play("cats");
-console.log(erin.plays);
-console.log(erin.playerPoints);
+// erin.playerPoints = 105;
+// console.log(erin.play("cats"));
 
-
-
+// TEST If the player has less than 100 points, Play word function should put the word in the player's plays array and increments the player's score
+// erin.playerPoints = 10;
+// console.log(erin.playerPoints);
+// console.log(erin.plays);
+// erin.play("cats");
+// console.log(erin.plays);
+// console.log(erin.playerPoints);
 
 Scrabble.highestScoreFrom = function(arrayOfWords){
   var max_score = 0
@@ -187,6 +184,28 @@ Scrabble.highestScoreFrom = function(arrayOfWords){
 //If words are tied, but none are 7 letters, the shortest word should win
 // console.log(Scrabble.prototype.highestScoreFrom(["ff", "x"]))
 
+//Function which returns the highest scoring word the user has played
+Player.prototype.highestScoringWord = function() {
+  return Scrabble.highestScoreFrom(this.plays);
+}
+// TEST highestScoringWord
+erin.play("cats");
+erin.play("a")
+// console.log(erin.highestScoringWord()); //<--- should return "cats" because it's worth more points than "a"
+
+Player.prototype.totalScore = function() {
+  return this.playerPoints
+}
+
+// TEST totalScore
+//console.log(erin.totalScore()); //<--- should return 7 because cats = 6 and a = 1
+
+Player.prototype.highestWordScore = function() {
+  return Scrabble.score(this.highestScoringWord());
+}
+
+//TEST highestWordScore
+console.log(erin.highestWordScore()); //<--- should return 6, because cats is the highest scoring word and it's worth 6 points  
 
 module.exports = Scrabble;
 
