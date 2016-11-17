@@ -247,7 +247,7 @@ erin.play("frogs");
 console.log("You played the word: " + erin.plays + " for " + Scrabble.score("frogs") + " points");
 console.log("You have " + erin.playerPoints + " points")
 erin.play("aaaaaaa")
-console.log("You've played the words: " + erin.plays);
+console.log("You played the word: " + erin.plays[1] + " for " + Scrabble.score("aaaaaaa") + " points");
 console.log("You have " + erin.playerPoints + " points");
 
 module.exports = Scrabble;
