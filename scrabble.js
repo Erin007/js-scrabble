@@ -1,6 +1,7 @@
 var Scrabble = function() {
-  this.score = score;
-  this.highestScoreFrom = highestScoreFrom;
+  this.score = 0;
+  // this.highestScoreFrom = 0;
+  // this.tileBag = Scrabble.tileBagFiller();
 };
 
 var Player = function(name) {
@@ -126,7 +127,7 @@ Player.prototype.play = function(word) {
   }
 }
 //TEST Play word function, should return false if already won
-var erin = new Player("Erin");
+// var erin = new Player("Erin");
 // erin.playerPoints = 105;
 // console.log(erin.play("cats"));
 
@@ -189,8 +190,8 @@ Player.prototype.highestScoringWord = function() {
   return Scrabble.highestScoreFrom(this.plays);
 }
 // TEST highestScoringWord
-erin.play("cats");
-erin.play("a")
+// erin.play("cats");
+// erin.play("a")
 // console.log(erin.highestScoringWord()); //<--- should return "cats" because it's worth more points than "a"
 
 Player.prototype.totalScore = function() {
@@ -205,6 +206,48 @@ Player.prototype.highestWordScore = function() {
 }
 
 //TEST highestWordScore
-console.log(erin.highestWordScore()); //<--- should return 6, because cats is the highest scoring word and it's worth 6 points
+// console.log(erin.highestWordScore()); //<--- should return 6, because cats is the highest scoring word and it's worth 6 points
+
+Scrabble.tileBagFiller = function(){
+  var tileBag = [];
+  tileBag = tileBag.concat(["J","K","Q","X","Z"])
+  tileBag = tileBag.concat(["B", "C", "F", "H", "M", "P", "V", "W", "Y" ])
+  tileBag = tileBag.concat(["B", "C", "F", "H", "M", "P", "V", "W", "Y" ])
+  tileBag = tileBag.concat(["G","G","G"])
+  tileBag = tileBag.concat(["D", "L", "S", "U","D", "L", "S", "U","D", "L", "S", "U","D", "L", "S", "U"])
+  tileBag = tileBag.concat(["N","R","T","N","R","T","N","R","T","N","R","T","N","R","T","N","R","T"])
+  tileBag = tileBag.concat(["O","O","O","O","O","O","O","O"])
+  tileBag = tileBag.concat(["A","I","A","I","A","I","A","I","A","I","A","I","A","I","A","I","A","I"])
+  tileBag = tileBag.concat(["E","E","E","E","E","E","E","E","E","E","E","E"])
+  return tileBag.sort();
+}
+
+Scrabble.drawTile = function(tileBag){
+  var randomTile = tileBag.splice([Math.floor(Math.random() * tileBag.length)],1);
+  return randomTile;
+}
+
+// console.log(tileBagFiller());
+// Scrabble.tileBagFiller();
+
+// TESTING //
+var game = new Scrabble
+console.log("Your current score is " + game.score);
+game.tileBag = Scrabble.tileBagFiller();
+console.log("There are " + game.tileBag.length + " tiles remaining.");
+
+var drawnTile = Scrabble.drawTile(game.tileBag);
+console.log("You drew", drawnTile); //<--- first draw from tile bag
+console.log("There are " + game.tileBag.length + " tiles remaining.");
+
+//There isn't functionality for players to only play words with the letters they have, but let's pretend...
+var erin = new Player("Erin");
+console.log("Hi, " + erin.name);
+erin.play("frogs");
+console.log("You played the word: " + erin.plays + " for " + Scrabble.score("frogs") + " points");
+console.log("You have " + erin.playerPoints + " points")
+erin.play("aaaaaaa")
+console.log("You've played the words: " + erin.plays);
+console.log("You have " + erin.playerPoints + " points");
 
 module.exports = Scrabble;
